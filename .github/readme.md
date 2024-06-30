@@ -1,7 +1,7 @@
-the following steps and screenshots details how i created my first github workflow action
+the following steps and screenshots details how I created my first CI/CD Pipeline using Gitlab CICD on a self-managed runner.
 
 
-step 1: create an AWS EC2 instance. its important to select "Ubuntu image" instead of the "AMAZON LINUX" image. Leave all other settings as they are.
+step 1: create an AWS EC2 instance. it's important to select the "Ubuntu image" instead of the "AMAZON LINUX" image. Leave all other settings as they are.
 
 <img width="772" alt="image" src="https://github.com/turbo-badex/Devops-Projects/assets/170211854/d69c9573-7ffb-4833-9fd3-be902bf2eab7">
 
