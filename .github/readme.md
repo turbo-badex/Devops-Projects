@@ -16,7 +16,7 @@ Step 3: Select the runner image and architecture of your EC2 instance. In my cas
 
 Follow the steps listed, to download and configure the runner on your self-hosted EC2 instance.
 
-If you follow all steps listed, you should get this message
+If you follow all the steps listed, you should get this message
 
 <img width="939" alt="image" src="https://github.com/turbo-badex/Devops-Projects/assets/170211854/9e0bcf40-234d-4ce8-a799-c417708f4808">
 
