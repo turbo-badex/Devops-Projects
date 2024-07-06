@@ -1,6 +1,4 @@
 
-Auth token: glrt-PiPqSNiRwboNMXMN5Ayz
-
 The following steps detail how i built a CI/CD Pipeline using Gitlab CICD on a self-managed runner.
 
 Step 1: Setup a self-managed gitlab runner
