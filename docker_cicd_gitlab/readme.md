@@ -71,7 +71,7 @@ Now visit the runner's page, you’ll see that the runner has been registered, a
 <img width="622" alt="image" src="https://github.com/turbo-badex/Devops-Projects/assets/170211854/10df6679-4455-47be-b111-fe14467a2002">
 
 *******IMPORTANT STEP******* - Make sure to install docker in your EC2 runner instance. You NEED docker runtime installed in the server environment to ensure a successful docker build.
-
+https://docs.docker.com/engine/install/ubuntu/
 
 After installing docker on your EC2 instance runner, I highly recommend you Add the GitLab CI User to the Docker Group
 
