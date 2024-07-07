@@ -64,11 +64,35 @@ Enter “https://gitlab.com/”, the registration token you copied earlier, and 
 
 
 
+
 Now visit the runner's page, you’ll see that the runner has been registered, as indicated by the green circle. 
 
 
 <img width="622" alt="image" src="https://github.com/turbo-badex/Devops-Projects/assets/170211854/10df6679-4455-47be-b111-fe14467a2002">
 
+*******IMPORTANT STEP******* - Make sure to install docker in your EC2 runner instance. You NEED docker runtime installed in the server environment to ensure a successful docker build.
 
-Create a .gitlab-ci.yml file and define pipeline jobs
+
+After installing docker on your EC2 instance runner, I highly recommend you Add the GitLab CI User to the Docker Group
+
+use the command:   sudo usermod -aG docker gitlab-runner
+
+
+restart docker after adding the gitlad CI user using the command: sudo systemctl restart docker
+
+
+
+Create a .gitlab-ci.yml file and define pipeline jobs.
+
+<img width="822" alt="image" src="https://github.com/turbo-badex/Devops-Projects/assets/170211854/7dd2070f-70ef-4dcd-b756-c803bc12be60">
+
+
+View the status of our pipeline and jobs
+We can commit our changes and push the latest changes to the remote branch to trigger the start of the pipeline.
+
+
+Select Build and then Pipelines to see all the jobs for that repository.
+
+
+<img width="1667" alt="image" src="https://github.com/turbo-badex/Devops-Projects/assets/170211854/aa5fb834-4eb2-443e-9b02-6e5b01af97fd">
 
