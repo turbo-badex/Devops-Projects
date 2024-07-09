@@ -9,7 +9,7 @@ on:
 env:
   EKS_CLUSTER_NAME: cicd-cluster
   AWS_REGION: us-east-1
-  DOCKER_REPOSITORY: goapp
+  DOCKER_REPOSITORY: note-app
 
 jobs:
   
