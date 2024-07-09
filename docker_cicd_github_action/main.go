@@ -11,6 +11,7 @@ import (
 	"strings"
 )
 
+
 // Page data struct for page render
 type Page struct {
 	Title string
