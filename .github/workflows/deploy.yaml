@@ -55,7 +55,7 @@ jobs:
       env:       
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
-        sed -i.bak "s|latest|$IMAGE_TAG|g" helm-chart/docker-cicd/values.yaml
+        sed -i.bak "s|latest|$IMAGE_TAG|g" cicd_helm_eks/helm-chart/docker-cicd/values.yaml
         - name: update docker Username and Image name
       env: 
         USER_NAME: ${{ secrets.DOCKERHUB_USERNAME }}
