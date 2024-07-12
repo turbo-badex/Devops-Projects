@@ -9,7 +9,7 @@ on:
 env:
   EKS_CLUSTER_NAME: cicd-cluster
   AWS_REGION: us-east-1
-  DOCKER_REPOSITORY: note-app
+  DOCKER_REPOSITORY: goapp
 
 jobs:
   
@@ -56,7 +56,8 @@ jobs:
         IMAGE_TAG: ${{ steps.commit.outputs.short }}
       run: |
         sed -i.bak "s|latest|$IMAGE_TAG|g" cicd_helm_eks/helm-chart/docker-cicd/values.yaml
-        - name: update docker Username and Image name
+    
+    - name: update docker Username and Image name
       env: 
         USER_NAME: ${{ secrets.DOCKERHUB_USERNAME }}
         IMAGE_NAME: ${{ env.DOCKER_REPOSITORY }}
@@ -67,4 +68,4 @@ jobs:
     - name: Deploy helm chart
       uses: WyriHaximus/github-action-helm3@v3
       with:
-        exec: helm upgrade --install docker-cicd helm-chart/docker-cicd/
+        exec: helm upgrade --install cicd_helm_eks/docker-cicd helm-chart/docker-cicd/
