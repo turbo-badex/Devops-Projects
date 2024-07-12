@@ -62,8 +62,8 @@ jobs:
         USER_NAME: ${{ secrets.DOCKERHUB_USERNAME }}
         IMAGE_NAME: ${{ env.DOCKER_REPOSITORY }}
       run: |
-        sed -i.bak "s|username|$USER_NAME|g" helm-chart/docker-cicd/values.yaml && \
-        sed -i.bak "s|imagename|$IMAGE_NAME|g" helm-chart/docker-cicd/values.yaml
+        sed -i.bak "s|username|$USER_NAME|g" cicd_helm_eks/helm-chart/docker-cicd/values.yaml && \
+        sed -i.bak "s|imagename|$IMAGE_NAME|g" cicd_helm_eks/helm-chart/docker-cicd/values.yaml
 
     - name: Deploy helm chart
       uses: WyriHaximus/github-action-helm3@v3
