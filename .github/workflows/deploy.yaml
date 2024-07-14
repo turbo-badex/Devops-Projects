@@ -64,6 +64,9 @@ jobs:
       run: |
         sed -i.bak "s|username|$USER_NAME|g" cicd_helm_eks/helm-chart/docker-cicd/values.yaml && \
         sed -i.bak "s|imagename|$IMAGE_NAME|g" cicd_helm_eks/helm-chart/docker-cicd/values.yaml
+  
+    - name: List Helm Chart Directory
+      run: ls -R cicd_helm_eks/helm-chart/docker-cicd/
 
     - name: Deploy helm chart
       uses: WyriHaximus/github-action-helm3@v3
