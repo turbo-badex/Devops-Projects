@@ -12,8 +12,8 @@ env:
   DOCKER_REPOSITORY: goapp
 
 jobs:
-  
-  build:
+
+   build:
     
     name: Deployment
     runs-on: ubuntu-latest
