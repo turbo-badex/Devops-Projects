@@ -1,27 +1,5 @@
-# BootStrap K8s with ArgoCD
+# Bootstrap EKS Cluster with ArgoCD using Terraform, Helm
 
-
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Clone the Repository](#clone-the-repository)
-3. [Provision EKS Cluster](#provision-eks-cluster)
-    - [Initialize Terraform](#initialize-terraform)
-    - [Plan Terraform](#Plan-terraform)
-    - [Apply Terraform Configuration](#apply-terraform-configuration)
-4. [Update EKS Configuration](#update-eks-configuration)
-5. [Apply Manifest Files](#apply-manifest-files)
-6. [Bootstrapping with ArgoCD](#bootstrapping-with-argocd)
-    - [Add a Namespace for ArgoCD](#add-a-namespace-for-argocd)
-    - [Install ArgoCD](#install-argocd)
-    - [Confirm ArgoCD Pods](#confirm-argocd-pods)
-    - [Map Port for ArgoCD Access](#map-port-for-argocd-access)
-    - [Retrieve ArgoCD Admin Password](#retrieve-argocd-admin-password)
-    - [Log in to ArgoCD](#log-in-to-argocd)
-    - [Connect GitHub Repository to ArgoCD](#connect-github-repository-to-argocd)
-    - [Add Your Cluster to ArgoCD](#add-your-cluster-to-argocd)
-    - [Create and Sync Your Application](#create-and-sync-your-application)
-7. [Conclusion](#conclusion)
 
 ### Introduction
 In this article, we will learn how to bootstrap our Kubernetes cluster with ArgoCD. To achieve this, we need a running cluster which can either be EKS, GKS, or AKS, our manifest files which are inside our GitHub repository, and an ArgoCD account.
@@ -40,14 +18,12 @@ terraform init
 terraform plan
 terraform apply
 ```
+The terraform configuration provisions the following listed below:
 
-### Update EKS Configuration
-
-After our EKS configuration has been successfully applied to AWS, update it using the following command so our manifest files can be applied to the cluster:
-
-```sh
-aws eks --region <region> update-kubeconfig --name <cluster-name>
-```
+1. EKS cluster on AWS
+2. Node and Node group using SPOT instances
+3. Update Kube config on the machine you’re running terraform from.
+4. Install ArgoCD helm chart on the provisioned cluster
 
 ### Apply Manifest Files
 
@@ -61,27 +37,12 @@ kubectl apply -f a.yaml
 
 Once your manifest files have been applied, the next step is to bootstrap them to ArgoCD to enhance continuous delivery. Follow these steps:
 
-1. **Add a namespace for ArgoCD:**
+** Check that argocd is installed and the pods are running
 
-    ```sh
-    kubectl create namespace argocd
-    ```
+<img width="622" alt="image" src="https://github.com/user-attachments/assets/088e3363-7acd-46d0-9fcb-734af885dfec">
 
-2. **Install ArgoCD:**
 
-    ```sh
-    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-    ```
-
-3. **Confirm ArgoCD Pods:**
-
-    After installation, wait for a while for the pods to be ready and confirm it using:
-
-    ```sh
-    kubectl get pods -n argocd
-    ```
-
-4. **Map Port for ArgoCD Access:**
+1. **Map Port for ArgoCD Access:**
 
     When the pods are ready, map your port to access ArgoCD in the browser:
 
@@ -89,7 +50,7 @@ Once your manifest files have been applied, the next step is to bootstrap them t
     kubectl port-forward svc/argocd-server -n argocd 8080:443
     ```
 
-5. **Retrieve ArgoCD Admin Password:**
+2. **Retrieve ArgoCD Admin Password:**
 
     Upon access, you will be required to log in with a username and a password. The username is `admin`, and the password can be retrieved using the following command:
 
@@ -97,7 +58,10 @@ Once your manifest files have been applied, the next step is to bootstrap them t
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
     ```
 
-6. **Log in to ArgoCD:**
+    <img width="1236" alt="image" src="https://github.com/user-attachments/assets/939c62ae-fb74-4c5e-a97a-3939e85503b2">
+
+
+3. **Log in to ArgoCD:**
 
     When the password has been retrieved, log in to ArgoCD with:
 
@@ -105,7 +69,7 @@ Once your manifest files have been applied, the next step is to bootstrap them t
     argocd login localhost:8080
     ```
 
-7. **Connect GitHub Repository to ArgoCD:**
+4. **Connect GitHub Repository to ArgoCD:**
 
     Once logged in successfully, connect the GitHub repo that contains the manifest with the following command:
 
@@ -113,9 +77,11 @@ Once your manifest files have been applied, the next step is to bootstrap them t
     argocd repo add https://github.com/username/repourl --username <your-github-username> --password <your-personal-access-token>
     ```
 
+<img width="1826" alt="image" src="https://github.com/user-attachments/assets/538d37fa-fec9-4bac-9a60-ecd30f4d6667">
+
     Note: To get your GitHub password, use your GitHub token, which can be generated in developer’s settings.
 
-8. **Add Your Cluster to ArgoCD:**
+5. **Add Your Cluster to ArgoCD:**
 
     Once your repo has been connected successfully, add your cluster to the ArgoCD server using the following command:
 
@@ -124,7 +90,10 @@ Once your manifest files have been applied, the next step is to bootstrap them t
     argocd cluster add <context-name>
     ```
 
-9. **Create and Sync Your Application:**
+    <img width="1707" alt="image" src="https://github.com/user-attachments/assets/a743da4f-aab5-455a-999f-6d19033fb6a7">
+
+
+6. **Create and Sync Your Application:**
 
     Once the cluster has been added successfully, proceed to create your app and configure your ArgoCD using:
 
@@ -136,7 +105,10 @@ Once your manifest files have been applied, the next step is to bootstrap them t
        --dest-namespace argocd
     ```
 
-10. **Sync Your Application:**
+    <img width="690" alt="image" src="https://github.com/user-attachments/assets/d0e1c121-2aa0-47c0-9b88-f8e4f04d61cb">
+
+
+7. **Sync Your Application:**
 
     Finally, sync your app using the following command:
 
@@ -144,7 +116,12 @@ Once your manifest files have been applied, the next step is to bootstrap them t
     argocd app sync newapp
     ```
 
+<img width="1266" alt="image" src="https://github.com/user-attachments/assets/29eef22b-133e-4c4e-8749-0822ee2db6e6">
+
 Once the sync is successful, you can log in to your ArgoCD via the browser to check it out.
+
+<img width="471" alt="image" src="https://github.com/user-attachments/assets/2cef722b-20de-4359-b004-8661b9c72f7f">
+
 
 ## Conclusion
 
