@@ -2,8 +2,8 @@ name: Deploy to EKS
 #t
 on:
  
-  push:
-    branches: [ main ]
+ # push:
+ #   branches: [ main ]
   workflow_dispatch:
 
 env:
